@@ -226,9 +226,7 @@ func BenchmarkSonicDecodingCompressed(b *testing.B) {
 		if err != nil {
 			b.Fatal(err)
 		}
-		// Wrap the gzip reader with a bufio.Reader for better I/O performance
-		bufioReader := bufio.NewReaderSize(gzipReader, 64*1024) // 64KB buffer
-		decoder := sonic.ConfigDefault.NewDecoder(bufioReader)
+		decoder := sonic.ConfigDefault.NewDecoder(gzipReader)
 		err = decoder.Decode(&tree)
 		if err != nil {
 			b.Fatal(err)
